@@ -20,8 +20,8 @@ subprojects {
     ext.jUnitVersion = '5.4.2'
     ext.guiceVersion = '4.2.2'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
     compileJava.options.encoding = 'UTF-8'
     compileTestJava.options.encoding = 'UTF-8'
