@@ -111,6 +111,6 @@ subprojects {
 }
 
 nexusStaging {
-    username = System.getenv("ossrhUser") ?: return@nexusStaging
-    password = System.getenv("ossrhPassword") ?: return@nexusStaging
+    username = System.getenv("ossrhUser")
+    password = System.getenv("ossrhPassword")
 }
