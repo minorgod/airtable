@@ -29,7 +29,9 @@ class AirtableApiQueryTest {
     @BeforeEach
     void setUp() {
         this.api = new AirtableApi(System.getenv("AIRTABLE_API_KEY"));
-        this.table = api.app("app3h0gjxLX3Jomw8").table("Test Table");
+        String appId = System.getenv("AIRTABLE_APP_ID") != null ? System.getenv("AIRTABLE_APP_ID") : "appHAPSLdj3Fyg8Hp";
+        String testTableName = System.getenv("AIRTABLE_TEST_TABLE") != null ? System.getenv("AIRTABLE_TEST_TABLE") : "Test Table";
+        this.table = api.app(appId).table(testTableName);
     }
 
     @Test

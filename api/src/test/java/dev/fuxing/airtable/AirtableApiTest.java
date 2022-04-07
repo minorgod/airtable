@@ -27,10 +27,13 @@ class AirtableApiTest {
 
     static final String TEST_NAME = "TEST_NAME";
 
+    static final String appId = System.getenv("AIRTABLE_APP_ID") != null ? System.getenv("AIRTABLE_APP_ID") : "appHAPSLdj3Fyg8Hp";
+    static final String testTableName = System.getenv("AIRTABLE_TEST_TABLE") != null ? System.getenv("AIRTABLE_TEST_TABLE") : "Test Table";
+
     @BeforeAll
     static void beforeAll() {
         api = new AirtableApi(System.getenv("AIRTABLE_API_KEY"));
-        table = api.app("app3h0gjxLX3Jomw8").table("Test Table");
+        table = api.app(appId).table(testTableName);
     }
 
     @BeforeEach
@@ -48,7 +51,7 @@ class AirtableApiTest {
 
     @Test
     void get() {
-        AirtableRecord record = table.get("rec0W9eGVAFSy9Chb");
+        AirtableRecord record = table.get("recAWfeAYthl3Iavw");
         assertNotNull(record);
 
         assertEquals("Name 1", record.getFieldString("Name"));

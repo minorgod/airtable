@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -17,11 +18,13 @@ import java.util.stream.IntStream;
  */
 class AirtableApiRetryTest {
     AirtableApi api;
+    AirtableApi.Table table;
+    static final String appId = System.getenv("AIRTABLE_APP_ID") != null ? System.getenv("AIRTABLE_APP_ID") : "appHAPSLdj3Fyg8Hp";
+    static final String testTableName = System.getenv("AIRTABLE_TEST_TABLE") != null ? System.getenv("AIRTABLE_TEST_TABLE") : "Test Table";
 
     @BeforeEach
     void setUp() {
         Executor executor = AirtableExecutor.newInstance(true, 3);
-
         this.api = new AirtableApi(System.getenv("AIRTABLE_API_KEY"), executor);
     }
 
@@ -39,14 +42,16 @@ class AirtableApiRetryTest {
     @Test
     @Disabled
     void tooManyRequest() {
-        AirtableApi.Table table = api.app("app3h0gjxLX3Jomw8").table("Test Table");
+        AirtableApi.Table table = api.app(appId).table(testTableName);
         AtomicInteger counter = new AtomicInteger(0);
 
         Runnable runnable = () -> {
-            table.list(querySpec -> {
+             final List result = table.list(querySpec -> {
                 querySpec.maxRecords(1);
                 querySpec.pageSize(1);
             });
+
+            System.out.println(result.get(0).toString());
             System.out.println(counter.incrementAndGet());
         };
 
