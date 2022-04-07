@@ -59,6 +59,10 @@ subprojects {
     }
 
     signing {
+        setRequired {
+            // signing is only required if the artifacts are to be published
+            gradle.taskGraph.allTasks.any { it.equals( PublishToMavenRepository) }
+        }
         sign configurations.archives
     }
 
@@ -71,7 +75,7 @@ subprojects {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
                 // Target repository
                 repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUser, password: ossrhPassword)
+                    authentication(userName:  System.getenv("ossrhUser"), password: System.getenv("ossrhPassword") )
                 }
                 pom {
                     artifactId = rootProject.name + '-' + project.name
@@ -111,6 +115,6 @@ subprojects {
 }
 
 nexusStaging {
-    username = ossrhUser
-    password = ossrhPassword
+    username =  System.getenv("ossrhUser")
+    password =  System.getenv("ossrhPassword")
 }

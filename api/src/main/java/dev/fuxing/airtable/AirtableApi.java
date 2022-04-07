@@ -403,10 +403,10 @@ public class AirtableApi {
     /**
      * QuerySpec implementation with URI builder
      */
-    public static final class QuerySpecImpl implements AirtableTable.QuerySpec {
+    public static class QuerySpecImpl implements AirtableTable.QuerySpec {
 
-        private URIBuilder builder;
-        private Map<String, String> sort = new HashMap<>();
+        private final URIBuilder builder;
+        private final Map<String, String> sort = new HashMap<>();
 
         QuerySpecImpl() {
             this.builder = new URIBuilder()
