@@ -21,6 +21,11 @@ public class AirtableList extends ArrayList<AirtableRecord> implements AirtableT
         this.offset = node.path("offset").asText(null);
     }
 
+    public AirtableList(List<? extends AirtableRecord> records, String offset) {
+        super(records);
+        this.offset = String.valueOf(offset);
+    }
+
     /**
      * @return offset
      * @see AirtableTable.PaginationList#getOffset()
@@ -40,4 +45,5 @@ public class AirtableList extends ArrayList<AirtableRecord> implements AirtableT
         }
         return records;
     }
+
 }
